@@ -35,7 +35,7 @@ RUN cd kaldi/src && \
     make depend
 
 # Build k3 and m3 binaries
-RUN make depend && make && rm -rf kaldi *.o
+RUN make depend && make && rm -rf *.o
 
 # Download models
 WORKDIR /gentle
@@ -56,6 +56,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.p
 
 COPY --from=builder /gentle/ext/k3 /gentle/ext/k3
 COPY --from=builder /gentle/ext/m3 /gentle/ext/m3
+COPY --from=builder /gentle/ext/kaldi/src/featbin /gentle/ext/kaldi/src/featbin
 COPY --from=builder /gentle/exp /gentle/exp
 ADD gentle/gentle /gentle/gentle
 ADD gentle/*.py /gentle/
